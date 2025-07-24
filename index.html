@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>โปรไฟล์: หทัยรัก อุทรักษ์ (Hatairak Utarak)</title>
+    <!-- Chosen Palette: Fresh Blues & Clean Neutrals for a Bright, Minimalist Style -->
+    <!-- Application Structure Plan: The application is designed as a modern, single-page professional profile. The structure flows from a high-level summary to detailed, interactive sections. It begins with a hero section for immediate impact. The core is an an interactive career timeline allowing users to click on each role to see details, paired with a bar chart visualizing experience duration. This is more engaging than a static list. A skills section uses a radar chart for a quick visual assessment of soft skills and categorized cards for hard skills. The structure concludes with education. This top-down, interactive approach is designed for recruiters to quickly grasp key strengths and explore details on demand, making the profile more memorable and easier to digest than a traditional resume. -->
+    <!-- Visualization & Content Choices: 1. Career Experience -> Interactive Vertical Timeline (HTML/CSS/JS) + Horizontal Bar Chart (Chart.js). Goal: Show career progression and compare time spent in each role. Interaction: Clicking a timeline event reveals detailed responsibilities and now also specific achievements. The bar chart provides an instant visual comparison of job tenure. Justification: More dynamic and insightful than a plain text list, now with added emphasis on quantifiable results. 2. Core Competencies -> Radar Chart (Chart.js). Goal: Visualize the balance and strength of personal/soft skills. Interaction: Tooltips on hover. Justification: A radar chart effectively displays multi-variable data in a compact, visually appealing format, highlighting a well-rounded skill set. 3. Hard Skills -> Styled Cards (HTML/Tailwind). Goal: Clearly organize technical skills into logical groups. Interaction: None needed, clarity is the goal. Justification: Simple, readable, and scannable. 4. Profile Picture -> Image (HTML/CSS/Tailwind). Goal: Personalize the resume and provide a visual representation of the candidate. Justification: Adds a professional and approachable touch to the profile, now positioned responsively to the right of the main heading on larger screens and is square-shaped. All visualizations use Chart.js on Canvas, adhering to the NO SVG/Mermaid constraint. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Kanit', sans-serif;
+            background-color: #e0f2f7; /* Light blue background for body */
+            color: #343a40;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 350px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .timeline-item-content {
+            transition: all 0.3s ease-in-out;
+        }
+        .timeline-button[aria-selected="false"] .timeline-dot {
+            background-color: #adb5bd; /* Medium gray dot when not selected */
+        }
+        .timeline-button[aria-selected="true"] .timeline-dot {
+            background-color: #2563eb; /* Blue-600 dot when selected */
+            transform: scale(1.25);
+        }
+        .timeline-button[aria-selected="false"] span {
+            font-weight: 400;
+            color: #495057;
+        }
+        .timeline-button[aria-selected="true"] span {
+            font-weight: 600;
+            color: #1d4ed8; /* Blue-700 text when selected */
+        }
+        .smooth-scroll {
+            scroll-behavior: smooth;
+        }
+        .section-title {
+            position: relative;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 3px solid #e0e0e0; /* Light gray border */
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background-color: #2563eb; /* Blue-600 accent line */
+        }
+    </style>
+</head>
+<body class="smooth-scroll bg-[#e0f2f7]">
+
+    <nav class="bg-white/90 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <span class="text-xl font-bold text-gray-800">RESUME</span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#home" class="text-gray-600 hover:bg-gray-200 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">หน้าแรก</a>
+                        <a href="#experience" class="text-gray-600 hover:bg-gray-200 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">ประสบการณ์</a>
+                        <a href="#skills" class="text-gray-600 hover:bg-gray-200 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">ทักษะ</a>
+                        <a href="#education" class="text-gray-600 hover:bg-gray-200 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">การศึกษา</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        
+        <section id="home" class="py-16 flex flex-col md:flex-row items-center justify-center md:justify-between max-w-5xl mx-auto">
+            <div class="md:w-2/3 text-center md:text-left">
+                <h1 class="text-4xl md:text-5xl font-bold text-gray-900">หทัยรัก อุทรักษ์</h1>
+                <h2 class="text-2xl md:text-3xl font-medium text-blue-600 mt-2">Technical Sales</h2>
+                <p class="mt-6 text-lg text-gray-600">
+                    ประสบการณ์ Technical Sale มากว่า 9 ปี ในการขับเคลื่อนยอดขายและสร้างความสัมพันธ์กับลูกค้าในอุตสาหกรรมวิทยาศาสตร์และอาหารเสริม มีความเชี่ยวชาญในการนำเสนอโซลูชันทางเทคนิคและประสานงานเพื่อสร้างผลลัพธ์ทางธุรกิจที่แข็งแกร่ง
+                </p>
+                <div class="mt-8 flex flex-col sm:flex-row justify-center md:justify-start space-y-2 sm:space-y-0 sm:space-x-4">
+                    <div class="text-gray-700">TEL. : 0614145244</div>
+                    <div class="hidden sm:block text-gray-700">|</div>
+                    <div class="text-gray-700">EMAIL : hatairak_u@hotmail.com</div>
+                    <div class="hidden sm:block text-gray-700">|</div>
+                    <div class="text-gray-700"><a href="https://www.linkedin.com/in/yourprofile" target="_blank" class="text-blue-600 hover:underline">LinkedIn Profile</a></div>
+                </div>
+            </div>
+            <div class="mt-8 md:mt-0 md:ml-12 flex-shrink-0">
+                <!-- กรุณาเปลี่ยน 'https://placehold.co/180x180/e0e0e0/343a40?text=Your+Photo' เป็น URL รูปภาพของคุณ -->
+                <img src="https://placehold.co/180x180/e0e0e0/343a40?text=ใส่รูปของคุณที่นี่" alt="รูปโปรไฟล์ของคุณหทัยรัก" class="shadow-lg w-44 h-44 object-cover">
+            </div>
+        </section>
+
+        <section id="experience" class="py-16">
+            <h2 class="text-3xl font-bold text-center section-title mx-auto max-w-md">เส้นทางอาชีพและประสบการณ์</h2>
+            <p class="text-center text-gray-600 mt-4 mb-12 max-w-3xl mx-auto">
+                สำรวจเส้นทางอาชีพในสายงาน Technical Sales ที่สั่งสมประสบการณ์จากการทำงานร่วมกับบริษัทชั้นนำ คลิกที่แต่ละตำแหน่งเพื่อดูรายละเอียดความรับผิดชอบและบทบาทที่สำคัญของฉันได้เลยค่ะ
+            </p>
+
+            <div class="lg:grid lg:grid-cols-12 lg:gap-8 items-start">
+                <div class="lg:col-span-4">
+                    <div class="relative pl-8">
+                        <div class="absolute left-4 top-0 bottom-0 w-0.5 bg-gray-300"></div>
+                        <div id="timeline-buttons" class="space-y-10">
+                        </div>
+                    </div>
+                </div>
+                <div id="timeline-details" class="lg:col-span-8 mt-12 lg:mt-0">
+                </div>
+            </div>
+
+            <div class="mt-20">
+                <h3 class="text-2xl font-bold text-center mb-8">ภาพรวมระยะเวลาประสบการณ์</h3>
+                 <div class="chart-container">
+                    <canvas id="experienceDurationChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="py-16 bg-white rounded-xl shadow-md">
+            <h2 class="text-3xl font-bold text-center section-title mx-auto max-w-md">ทักษะและความสามารถ</h2>
+             <p class="text-center text-gray-600 mt-4 mb-12 max-w-3xl mx-auto">
+                ทักษะที่หลากหลายเป็นรากฐานสำคัญในการทำงาน ตั้งแต่ความสามารถเชิงเทคนิคไปจนถึงทักษะการสื่อสารระหว่างบุคคล ซึ่งสะท้อนผ่านภาพรวมความสามารถหลักและทักษะเฉพาะทางต่างๆ
+            </p>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h3 class="text-2xl font-bold text-center mb-4">ความสามารถหลัก (Core Competencies)</h3>
+                    <div class="chart-container h-[400px] max-h-[450px]">
+                        <canvas id="skillsRadarChart"></canvas>
+                    </div>
+                </div>
+                <div class="space-y-6">
+                    <div id="hard-skills-container"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="education" class="py-16">
+            <h2 class="text-3xl font-bold text-center section-title mx-auto max-w-md">ประวัติการศึกษา</h2>
+             <p class="text-center text-gray-600 mt-4 mb-12 max-w-3xl mx-auto">
+                พื้นฐานความรู้ที่แข็งแกร่งจากสถาบันการศึกษาชั้นนำ เป็นจุดเริ่มต้นสำคัญของความเชี่ยวชาญในสายอาชีพ
+            </p>
+            <div id="education-container" class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-800 text-white text-center p-6 mt-12">
+        <p>&copy; 2025 โปรไฟล์ของ หทัยรัก อุทรักษ์</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            const experienceData = [
+                {
+                    id: 'unify_supervisor', // Unique ID
+                    title: 'Technical Sales Supervisor',
+                    company: 'Unify Chemical Co., Ltd.',
+                    period: 'กุมภาพันธ์ 2565 – กรกฎาคม 2566',
+                    duration: 1.5,
+                    details:[ 
+                        'รับผิดชอบการขายส่วนผสมสำหรับธุรกิจอาหารเสริม (Food Supplement) ในระดับ B2B',
+                        'ดูแลพื้นที่กรุงเทพฯ, นนทบุรี, อยุธยา, ปทุมธานี และภาคเหนือของประเทศไทย',
+                        'สร้างและรักษาความสัมพันธ์อันดีกับเจ้าของแบรนด์อาหารเสริมและลูกค้า OEM',
+                        'นำเสนอข้อมูลผลิตภัณฑ์เชิงเทคนิคและให้คำปรึกษาที่ตรงกับความต้องการของลูกค้า',
+                        'ดูแล Supplier สินค้าของทีม อย่างน้อย 3 เจ้า เพื่อประสานงานด้านข้อมูล และการสั่งสินค้า เพื่อรองรับความต้องการของลูกค้าของบริษัท',
+                        'ดูแลยอดขายของผู้ใต้บังคับบัญชา 2 คน ให้บรรลุเป้าของทีม'      
+                    ],
+                   
+                },
+                {
+                    id: 'unify_senior', // Unique ID
+                    title: 'Senior Technical Sales',
+                    company: 'Unify Chemical Co., Ltd.',
+                    period: 'กรกฎาคม 2564 – กุมภาพันธ์ 2565',
+                    duration: 0.67,
+                    details:[ 
+                        'รับผิดชอบการขายส่วนผสมสำหรับธุรกิจอาหารเสริม (Food Supplement) ในระดับ B2B',
+                        'ดูแลพื้นที่กรุงเทพฯ, นนทบุรี, อยุธยา, ปทุมธานี และภาคเหนือของประเทศไทย',
+                        'สร้างและรักษาความสัมพันธ์อันดีกับเจ้าของแบรนด์อาหารเสริมและลูกค้า OEM',
+                        'นำเสนอข้อมูลผลิตภัณฑ์เชิงเทคนิคและให้คำปรึกษาที่ตรงกับความต้องการของลูกค้า',
+                        'ดูแล Supplier สินค้าของทีม อย่างน้อย 3 เจ้า เพื่อประสานงานด้านข้อมูล และการสั่งสินค้า เพื่อรองรับความต้องการของลูกค้าของบริษัท'
+                    ],
+                    achievements: [
+                        'บรรลุเป้าหมายยอดขาย 146% (50 MB) ในปี 2564',
+                        'ปิด Deal Exclusive Product กับ บริษัท รีโว่เมด กรุป ระยะเวลา 3 ปี มูลค่ารวมกว่า 35 ล้านบาท',
+                        'ได้รับรางวัล พนักงานขายยอดเยี่ยม ในปี 2564'
+                    ]
+                },
+                {
+                    id: 'unify_executive', // Unique ID
+                    title: 'Technical Sales Executive',
+                    company: 'Unify Chemical Co., Ltd.',
+                    period: 'กันยายน 2562 – กรกฎาคม 2564',
+                    duration: 1.9,
+                    details:[ 
+                        'รับผิดชอบการขายส่วนผสมสำหรับธุรกิจอาหารเสริม (Food Supplement) ในระดับ B2B',
+                        'ดูแลพื้นที่กรุงเทพฯ, นนทบุรี, อยุธยา, ปทุมธานี และภาคเหนือของประเทศไทย',
+                        'สร้างและรักษาความสัมพันธ์อันดีกับเจ้าของแบรนด์อาหารเสริมและลูกค้า OEM',
+                        'นำเสนอข้อมูลผลิตภัณฑ์เชิงเทคนิคและให้คำปรึกษาที่ตรงกับความต้องการของลูกค้า'
+                    ],
+                    achievements: [
+                        'บรรลุเป้าหมายยอดขายเกิน 90% (2564)',
+                     
+                    ]
+                },
+                {
+                    id: 'eppendorf',
+                    title: 'Sales Consultant',
+                    company: 'Eppendorf (Thailand) Co., Ltd.',
+                    period: 'พฤศจิกายน 2560 – มกราคม 2562',
+                    duration: 1.2,
+                    details: [
+                        'รับผิดชอบกิจกรรมการขายและการตลาดในพื้นที่ที่ได้รับมอบหมาย',
+                        'บริหารจัดการแบรนด์, ตัวแทนจำหน่าย และพื้นที่การขาย',
+                        'ให้คำปรึกษาด้านเทคนิค, แก้ไขปัญหา, และสาธิตผลิตภัณฑ์',
+                        'รับผิดชอบการติดตั้งผลิตภัณฑ์ให้กับลูกค้า'
+                    ],
+               
+                },
+                {
+                    id: 'als',
+                    title: 'Marketing Scientist',
+                    company: 'ALS Laboratory Group (Thailand) Co., Ltd.',
+                    period: 'สิงหาคม 2557 – ตุลาคม 2560',
+                    duration: 3.2,
+                    details: [
+                        'รับผิดชอบด้านการขาย, บริการลูกค้า และการวิเคราะห์ตลาด',
+                        'ดูแลยอดขาย และรักษาฐานลูกค้าปัจจุบันผ่านการเยี่ยมเยียนและการติดต่อทางโทรศัพท์',
+                        'ประสานงานระหว่างลูกค้าและทุกแผนกในบริษัทเพื่อการบริการที่ราบรื่น',
+                        'ดำเนินงานภายใต้สโลแกนของบริษัทในบทบาทของ Marketing Scientist คือ "ONE STOP SERVICE"'
+                    ],
+                    achievements: [
+                        'บรรลุเป้าหมายยอดขายของทีมเกิน 90% ตลอดระยะเวลาที่ปฏิบัติงาน',
+
+                    ]
+                }
+            ];
+
+            const hardSkillsData = [
+                { 
+                    title: 'ทักษะการขาย', 
+                    icon: '💼',
+                    skills: ['การเจรจาต่อรอง', 'การนำเสนอ', 'การสร้างความสัมพันธ์กับลูกค้า', 'การบริหารพื้นที่การขาย'] 
+                },
+                { 
+                    title: 'ทักษะทางเทคนิค', 
+                    icon: '🔬',
+                    skills: ['ความเข้าใจผลิตภัณฑ์อาหารเสริม', 'การให้คำปรึกษาด้านเทคนิค', 'การนำเสนอผลิตภัณฑ์'] 
+                },
+                { 
+                    title: 'ทักษะคอมพิวเตอร์', 
+                    icon: '💻',
+                    skills: ['Microsoft Word', 'Microsoft Excel', 'Microsoft PowerPoint', 'Microsoft Outlook', 'AI เพื่อการทำงาน'] 
+                },
+                { 
+                    title: 'ภาษา', 
+                    icon: '🌐',
+                    skills: ['ภาษาอังกฤษ : พูด (ระดับพอใช้) ฟัง (ระดับพอใช้) อ่าน (ระดับดีมาก) เขียน (ระดับดี)', 'ภาษาไทย : ระดับดีมาก'] 
+                }
+            ];
+
+            const educationData = [
+                {
+                    degree: 'ปริญญาตรี วิทยาศาสตรบัณฑิต',
+                    major: 'สาขาวิชาวิทยาศาสตร์และเทคโนโลยีการอาหาร',
+                    university: 'มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือ',
+                    year: '2553',
+                    gpa: '3.26'
+                },
+                {
+                    degree: 'ประกาศนียบัตรมัธยมศึกษาตอนปลาย',
+                    major: 'สายวิทย์-คณิต',
+                    university: 'โรงเรียนแกลง “วิทยสถาวร”',
+                    year: '2549',
+                    gpa: '3.66'
+                }
+            ];
+
+            const timelineButtonsContainer = document.getElementById('timeline-buttons');
+            const timelineDetailsContainer = document.getElementById('timeline-details');
+
+            // Sort experienceData by start date (most recent first) for correct timeline display
+            // Assuming the 'period' string starts with the year in 'YYYY' or 'YYYY – YYYY' format
+            experienceData.sort((a, b) => {
+                const yearA = parseInt(a.period.substring(a.period.length - 4));
+                const yearB = parseInt(b.period.substring(b.period.length - 4));
+                return yearB - yearA; // Sort descending by end year
+            });
+
+
+            experienceData.forEach((job, index) => {
+                const buttonHTML = `
+                    <button class="timeline-button w-full text-left flex items-center space-x-4" data-target="${job.id}" role="tab" aria-selected="${index === 0}">
+                        <div class="timeline-dot w-4 h-4 rounded-full transition-all duration-300"></div>
+                        <div>
+                            <span class="font-semibold text-lg">${job.title}</span>
+                            <p class="text-sm text-gray-500">${job.company}</p>
+                        </div>
+                    </button>
+                `;
+                timelineButtonsContainer.innerHTML += buttonHTML;
+
+                const detailHTML = `
+                    <div id="${job.id}" class="timeline-item-content p-6 bg-white rounded-lg shadow-lg ${index !== 0 ? 'hidden' : ''}" role="tabpanel">
+                        <h3 class="text-xl font-bold text-gray-800">${job.title}</h3>
+                        <p class="text-md font-medium text-blue-600">${job.company}</p>
+                        <p class="text-sm text-gray-500 mt-1 mb-4">${job.period}</p>
+                        <h4 class="text-lg font-semibold text-gray-700 mt-4 mb-2">หน้าที่ความรับผิดชอบ:</h4>
+                        <ul class="space-y-2 list-disc list-inside text-gray-700">
+                            ${job.details.map(d => `<li>${d}</li>`).join('')}
+                        </ul>
+                        ${job.achievements && job.achievements.length > 0 ? `
+                            <h4 class="text-lg font-semibold text-gray-700 mt-4 mb-2">ความสำเร็จ:</h4>
+                            <ul class="space-y-2 list-disc list-inside text-gray-700">
+                                ${job.achievements.map(a => `<li>${a}</li>`).join('')}
+                            </ul>
+                        ` : ''}
+                    </div>
+                `;
+                timelineDetailsContainer.innerHTML += detailHTML;
+            });
+
+            document.querySelectorAll('.timeline-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetId = button.dataset.target;
+
+                    document.querySelectorAll('.timeline-button').forEach(btn => btn.setAttribute('aria-selected', 'false'));
+                    button.setAttribute('aria-selected', 'true');
+
+                    document.querySelectorAll('.timeline-item-content').forEach(panel => {
+                        if (panel.id === targetId) {
+                            panel.classList.remove('hidden');
+                        } else {
+                            panel.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+
+            const hardSkillsContainer = document.getElementById('hard-skills-container');
+            hardSkillsData.forEach(category => {
+                const skillHTML = `
+                    <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
+                        <h4 class="text-lg font-bold flex items-center mb-3">
+                            <span class="text-2xl mr-3">${category.icon}</span>
+                            ${category.title}
+                        </h4>
+                        <div class="flex flex-wrap gap-2">
+                            ${category.skills.map(skill => `<span class="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">${skill}</span>`).join('')}
+                        </div>
+                    </div>
+                `;
+                hardSkillsContainer.innerHTML += skillHTML;
+            });
+
+            const educationContainer = document.getElementById('education-container');
+            educationData.forEach(edu => {
+                const eduHTML = `
+                    <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-blue-600">
+                        <h3 class="text-xl font-bold text-gray-800">${edu.degree}</h3>
+                        <p class="text-md text-gray-600">${edu.major}</p>
+                        <p class="text-md font-medium text-gray-700 mt-2">${edu.university}</p>
+                        <div class="flex justify-between items-baseline mt-4">
+                            <span class="text-sm text-gray-500">ปีที่สำเร็จการศึกษา: ${edu.year}</span>
+                            <span class="font-semibold text-blue-600">GPA: ${edu.gpa}</span>
+                        </div>
+                    </div>
+                `;
+                educationContainer.innerHTML += eduHTML;
+            });
+
+            const expCtx = document.getElementById('experienceDurationChart').getContext('2d');
+            new Chart(expCtx, {
+                type: 'bar',
+                data: {
+                    labels: experienceData.map(job => job.company + ' (' + job.title + ')'), // Updated labels to include title
+                    datasets: [{
+                        label: 'ระยะเวลาประสบการณ์ (ปี)',
+                        data: experienceData.map(job => job.duration),
+                        backgroundColor: 'rgba(37, 99, 235, 0.6)', /* blue-600 with opacity */
+                        borderColor: 'rgba(37, 99, 235, 1)', /* blue-600 */
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return ` ${context.raw.toFixed(1)} ปี`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            title: { display: true, text: 'จำนวนปี' }
+                        }
+                    }
+                }
+            });
+
+            const radarCtx = document.getElementById('skillsRadarChart').getContext('2d');
+            new Chart(radarCtx, {
+                type: 'radar',
+                data: {
+                    labels: ['การทำงานเป็นทีม', 'การปรับตัว', 'การแก้ปัญหา', 'ความรับผิดชอบ', 'ทำงานภายใต้แรงกดดัน', 'การควบคุมอารมณ์'],
+                    datasets: [{
+                        label: 'ความสามารถหลัก',
+                        data: [5, 5, 5, 4, 4, 4], // 'การแก้ปัญหา' changed to 5
+                        fill: true,
+                        backgroundColor: 'rgba(37, 99, 235, 0.2)', /* blue-600 with opacity */
+                        borderColor: 'rgb(37, 99, 235)', /* blue-600 */
+                        pointBackgroundColor: 'rgb(37, 99, 235)', /* blue-600 */
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgb(37, 99, 235)' /* blue-600 */
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        r: {
+                            angleLines: { color: 'rgba(0, 0, 0, 0.1)' },
+                            grid: { color: 'rgba(0, 0, 0, 0.1)' },
+                            pointLabels: { font: { size: 13 } },
+                            suggestedMin: 0,
+                            suggestedMax: 5,
+                            ticks: { display: false }
+                        }
+                    }
+                }
+            });
+
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
